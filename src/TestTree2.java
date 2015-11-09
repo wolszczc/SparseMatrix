@@ -9,11 +9,15 @@ public class TestTree2 {
     public static void main(String[] args){
         Tree tree = new Tree();
 
-        File file = new File("C:\\Users\\HP\\Desktop\\Programowanie\\Inteljji\\ASTRUK_3_rekurencja\\src/123.txt");
+        File file = new File("C:\\Users\\HP\\Desktop\\Programowanie\\Inteljji\\Matrix\\src/123.txt");
         try {
             Scanner scanner = new Scanner(file);
+            scanner.nextInt();
+            scanner.nextInt();
+
             while (scanner.hasNext()) {
-                tree.insert(tree.getRoot(),Double.parseDouble(scanner.next()), Integer.parseInt(scanner.next()));
+                scanner.nextInt();
+                tree.insert(tree.getRoot(), Integer.parseInt(scanner.next()), Double.parseDouble(scanner.next()));
             }
 
         }catch (FileNotFoundException fnfe){

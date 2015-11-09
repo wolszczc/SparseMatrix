@@ -16,8 +16,8 @@ public class Tree {
         private Node parent;
         private Item item;
 
-        public Node(double value,int index){
-            item = new Item(value,index);
+        public Node(int index, double value){
+            item = new Item(index, value);
             left = null;
             right = null;
             parent = null;
@@ -32,7 +32,7 @@ public class Tree {
             private int index;
             private int deep;
 
-            public Item(double value, int index){
+            public Item(int index, double value){
                 this.index = index;
                 this.value = value;
             }
@@ -50,9 +50,9 @@ public class Tree {
      * @param index dodawana wartość.
      * @return wskażnik do dziecka node.
      */
-    public Node insert(Node node, double value, int index){
+    public Node insert(Node node, int index, double value){
         if(root == null) {
-            root = new Node(value, index);
+            root = new Node(index, value);
             node = root;
             root.item.deep = 1;
         }
@@ -60,15 +60,15 @@ public class Tree {
             Node actual = node;
             if(actual != null) {
                 parent = actual;
-                actual = (actual.item.index > index)? insert(actual.left, value, index) : insert(actual.right, value, index);
+                actual = (actual.item.index > index)? insert(actual.left, index, value) : insert(actual.right, index, value);
             }
             if (parent != null) {
                 if (parent.item.index > index) {
-                    parent.left = new Node(value, index);
+                    parent.left = new Node(index, value);
                     parent.left.parent = parent;
                     parent.left.item.deep = parent.item.deep + 1;
                 } else if (parent.item.index < index) {
-                    parent.right = new Node(value, index);
+                    parent.right = new Node(index, value);
                     parent.right.parent = parent;
                     parent.right.item.deep = parent.item.deep + 1;
                 }
@@ -115,7 +115,7 @@ public class Tree {
     public void get(Node node){
         if(node != null){
             get(node.left);
-            System.out.println("Wartość: "+node.item.value+"  indeks: "+node.item.index + "  głębokość: " +node.item.deep);
+            System.out.println("Wartość: "+node.item.value+"  rząd: "+node.item.index + "  głębokość: " +node.item.deep);
             get(node.right);
         }
     }
