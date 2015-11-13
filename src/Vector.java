@@ -29,7 +29,7 @@ public class Vector {
             Scanner scanner = new Scanner(file);
             rowMax = scanner.nextInt();
             columnMax = scanner.nextInt();
-            vector = new Vector[rowMax + 1];
+            vector = new Vector[rowMax];
             while(scanner.hasNext()){
                 a = Integer.parseInt(scanner.next());
                 try {
@@ -46,6 +46,12 @@ public class Vector {
             System.err.println("Element spoza zakresu: "+rowMax+" < "+a  );
             System.exit(0);
         }
+        return vector;
+    }
+
+    public Vector addToTree(int index ,double value){
+        Vector vector = new Vector();
+        vector.tree.insert(vector.tree.getRoot(),index,value);
         return vector;
     }
 }

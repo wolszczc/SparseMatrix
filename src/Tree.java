@@ -9,7 +9,7 @@ public class Tree {
     /**
      * Klasa tworząca węzeł
      */
-    private class Node {
+    public class Node {
 
         private Node left;
         private Node right;
@@ -26,7 +26,7 @@ public class Tree {
         /**
          * Klasa przechowująca wartości i numer indeksu.
          */
-        private class Item{
+        public class Item{
 
             private double value;
             private int index;
@@ -36,8 +36,19 @@ public class Tree {
                 this.index = index;
                 this.value = value;
             }
+
+            public double getValue() {
+                return value;
+            }
+
+            public void setValue(double value) {
+                this.value = value;
+            }
         }
 
+        public Item getItem() {
+            return item;
+        }
     }
 
     public Node getRoot(){
@@ -90,6 +101,7 @@ public class Tree {
             return node;
         else if(node == null) {
             System.out.println("Nie znaleziono podanej wartości");
+            return null;
         }
         return node;
     }
@@ -105,7 +117,7 @@ public class Tree {
         if(tmp != null)
             return tmp.item.value;
         else
-            return 0;
+            return 0.0;
     }
 
     /**

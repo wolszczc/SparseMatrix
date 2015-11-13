@@ -4,13 +4,19 @@
 public class TestMatrix {
     public static void main(String[] args) {
 
-        Matrix matrix = new Matrix("C:\\Users\\HP\\Desktop\\Programowanie\\Inteljji\\Matrix\\src/123.txt");
+        Matrix matrixA = new Matrix("C:\\Users\\Cezary\\IdeaProjects\\SparseMatrix\\src/A.txt");
+        Matrix matrixB = new Matrix("C:\\Users\\Cezary\\IdeaProjects\\SparseMatrix\\src/B.txt");
+        Matrix matrixC = null;
 
-        System.out.println(matrix.getElement(6,5));
-        matrix.setElement(6,5,9.9);
-        System.out.println(matrix.getElement(6,5));
-
-        System.out.println("A");
-        matrix.readMatrix("C:\\Users\\HP\\Desktop\\Programowanie\\Inteljji\\Matrix\\src/123.txt");
+        System.out.println(matrixA.getElement(5, 6));
+        matrixA.setElement(5, 6, 9.9);
+        System.out.println(matrixA.getElement(5, 6));
+//
+//        System.out.println("A");
+////        matrixA.readMatrix("C:\\Users\\Cezary\\IdeaProjects\\SparseMatrix\\src/A.txt");
+//        matrixC = matrixA.add(matrixB);
+//
+//        System.err.println(matrixC.getElement(5,5));
     }
+
 }
