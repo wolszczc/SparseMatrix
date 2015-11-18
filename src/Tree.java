@@ -100,7 +100,7 @@ public class Tree {
         else if(node != null && node.item.index == index)
             return node;
         else if(node == null) {
-            System.out.println("Nie znaleziono podanej wartości");
+//            System.out.println("Nie znaleziono podanej wartości");
             return null;
         }
         return node;

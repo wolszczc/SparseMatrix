@@ -31,6 +31,10 @@ public class Matrix {
         return vector;
     }
 
+    /**
+     * Metoda czyta z pliku liczbę kolumn i rzędów macierzy.
+     * @param fileName ścieżka do pliku
+     */
     void readColAndRow(String fileName){
         File file = new File(fileName);
 
@@ -44,6 +48,12 @@ public class Matrix {
         }
     }
 
+    /**
+     * Metoda pobiera wartość z wektora
+     * @param row nr rzędu
+     * @param col nr kolumny
+     * @return wartość
+     */
     public double getElement(int row, int col){
         double tmp = 0;
         try {
@@ -51,43 +61,28 @@ public class Matrix {
         }catch (NullPointerException npe){
             System.out.print("");
         }catch (ArrayIndexOutOfBoundsException aiaobe){
-            System.err.println("Podano element ("+row+","+col+") z poza macierzy ("+rowMax+","+colMax+")");
+            System.err.println("Podano element ("+row +","+col+") z macierzy ("+rowMax+","+colMax+")");
+            System.exit(0);
         }
         return tmp;
     }
 
-    /*
-    public void setElement(int row, int col, double value){
-
-        try {
-            vector[row].getTree().getRoot();
-        }catch (NullPointerException npe){
-            vector[row].addToTree(col,value);
-//            vector[row].getTree().insert(vector[row].getTree().getRoot(),col,value);
-//            wyjście z metody
-        }
-        catch (ArrayIndexOutOfBoundsException aiaobe){
-            System.err.println("Element spoza zakresu: "+rowMax+" < "+ row  );
-            System.exit(0);
-        }
-        try{
-            vector[row].getTree().getRoot().getItem().getValue();
-        }catch (NullPointerException npe) {
-            vector[row].getTree().insert(vector[row].getTree().getRoot(), col, value);
-        }
-        if(vector[row].getTree().getRoot().getItem().getValue() !=0)
-            vector[row].getTree().getRoot().getItem().setValue(value);
-    }
-    */
-
+    /**
+     * Metoda ustawia nową wartość we wskazanym miejscu w wektorze
+     * @param row nr rzędu
+     * @param col nr kolumny
+     * @param value nowa wartość
+     */
     public void setElement(int row, int col, double value) {
-
-        if(vector[row].getTree().getRoot() == null){
-            vector[row].getTree().insert(vector[row].getTree().getRoot(),col,value);
+        vector[row] = new Vector();
+        vector[row].getTree().insert(vector[row].getTree().getRoot(),col,value);
         }
-    }
 
-        public void readMatrix(String fileName){
+    /**
+     * Czyta z pliku i wypisuje na wyjście macierz.
+     * @param fileName ścieżka do pliku
+     */
+    public void readMatrix(String fileName){
         File file = new File(fileName);
         try {
             Scanner scanner = new Scanner(file);
@@ -100,41 +95,57 @@ public class Matrix {
         }
     }
 
-    public Matrix add(Matrix matrix){
+    /**
+     * Metoda dodająca do siebie dwie macierze
+     * @param matrix macierz B
+     * @return wynik dodawania macierzy
+     */
+     public Matrix add(Matrix matrix){
+         if(matrix.rowMax != this.rowMax){
+             System.err.println("Dodawanie niemożliwe, różna długość macierzy");
+             System.exit(0);
+         }
         Matrix matrix3 = new Matrix(rowMax);
         for (int i = 0; i < rowMax; i++){
             for (int j = 0; j<colMax;j++){
-                try{
-                    matrix.getVector()[j].getTree().getRoot();
-                }catch(NullPointerException npe) {
-                    try{
-                        this.getVector()[j].getTree().getRoot();
-                    }catch (NullPointerException npe2){
-                        System.out.print("bbbb");
-                        continue;
-                    }
-                    matrix3.setElement(i,j,this.getElement(i,j));
-                    System.out.print("aaaa");
+                double tmp = matrix.getElement(i,j) + this.getElement(i,j);
+                System.out.print(" "+tmp);
+                if(tmp != 0) {
+                    matrix3.setElement(i, j, tmp);
                 }
-                try{
-                    this.getVector()[j].getTree().getRoot();
-                }catch(NullPointerException npe) {
-                    try{
-                        matrix.getVector()[j].getTree().getRoot();
-                    }catch (NullPointerException npe2){
-                        System.out.print("bbbb");
-                        continue;
-                    }
-                    matrix3.setElement(i,j,matrix.getElement(i, j));
-                    System.out.print("aaaa");
-                }
-                System.err.println("to to");
-                double tmp = this.getElement(i,j)+matrix.getElement(i,j);
-                System.err.println(this.getElement(i, j));
-
-                matrix3.setElement(i,j,tmp);
             }
+            System.out.println();
         }
-        return matrix;
+        return matrix3;
     }
+
+    /**
+     * Metoda mnożąca dwie macierze przez siebie.
+     * @param matrix macierz B
+     * @return wynik mnożenia macierzy
+     */
+    public Matrix multiply(Matrix matrix){
+        if((matrix.rowMax != this.colMax) || (this.rowMax != matrix.colMax)){
+            System.err.println("Mnożenie niemożliwe, niewłaściwa długość macierzy");
+            System.exit(0);
+        }
+        Matrix matrix3 = new Matrix(rowMax);
+        double tmp = 0;
+
+        for(int k = 0; k <rowMax;k++) {
+            for (int i = 0; i < rowMax; i++) {
+                for (int j = 0; j < colMax; j++) {
+                    tmp = tmp + (matrix.getElement(k, j) * this.getElement(j, i));
+                }
+                System.out.print(" "+tmp);
+                if(tmp !=0) {
+                    matrix3.setElement(k, i, tmp);
+                }
+                tmp = 0;
+            }
+            System.out.println();
+        }
+        return matrix3;
+    }
+
 }

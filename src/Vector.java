@@ -17,7 +17,11 @@ public class Vector {
         return tree;
     }
 
-
+    /**
+     * Metoda czytająca wartości macierzy z pliku.
+     * @param fileName ścieżka do pliku
+     * @return tablice wartość
+     */
     public static Vector[] readMatrix(String fileName){
         Vector[] vector = null;
         File file = new File(fileName);
@@ -49,7 +53,13 @@ public class Vector {
         return vector;
     }
 
-    public Vector addToTree(int index ,double value){
+    /**
+     * Metoda dodająca wartość do drzewa we wskazanym wektorze.
+     * @param index nr indeksu
+     * @param value vartość
+     * @return wektor
+     */
+    public Vector addToVector(int index , double value){
         Vector vector = new Vector();
         vector.tree.insert(vector.tree.getRoot(),index,value);
         return vector;
